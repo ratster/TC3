@@ -16,21 +16,14 @@
 <script>
 	
 window._pcq = window._pcq || [];
+
 _pcq.push(['APIReady', callbackOnAPIReady]); //will execute callback function when PushCrew API is ready
 
-_pcq.push(['subscriptionSuccessCallback',callbackOnSuccessfulSubscription]); //registers callback function to be called when user gets successfully subscribed
-
 function callbackOnAPIReady() {
-    //now api is ready
-    _pcq.push(['addSubscriberToSegment', 'homepage', callbackForAddToSegment]);
+    _pcq.push(['removeSubscriberFromSegment', 'homepage', callbackForRemoveFromSegment]);  
 }
 
-function callbackOnSuccessfulSubscription(subscriberId, values) {
-    //user just got subscribed
-    _pcq.push(['addSubscriberToSegment', 'homepage', callbackForAddToSegment]);
-}
-
-function callbackForAddToSegment(response) {
+function callbackForRemoveFromSegment(response) {
     if(response === -1) {
         console.log('User is not a subscriber or has blocked notifications');
     }
@@ -40,9 +33,9 @@ function callbackForAddToSegment(response) {
     }
   
     if(response === true) {
-        console.log('User got added to the segment successfully. Now you may run any code you wish to execute after user gets added to segment successfully');
+        console.log('User got removed from the segment successfully. Now you may run any code you wish to execute after user gets removed from segment successfully');
     }
-}	
+}
 	
 
 </script>
